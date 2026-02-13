@@ -1,10 +1,10 @@
 package com.balancer.core.dto;
 
+import java.util.List;
+
 public class PlanResponse {
-    List<Dispatch> assignedOrders;
-    public PlanResponse(List<DispatchPlan> assignedOrders){
-        this.assignedOrders=assignedOrders;
+    private final List<DispatchResponse> dispatchResponsePlan;
+    public PlanResponse(List<DispatchResponse> dispatchResponsePlan){
+        this.dispatchResponsePlan = dispatchResponsePlan;
     }
 }
-git config --global user.email "kathircp007@gmail.com"
-git config --global user.name "kathir"
