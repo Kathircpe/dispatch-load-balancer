@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-
-public class LoadBalancer {
+public class LoadBalancer implements Balancer {
     private static final int PARALLEL_STREAM_THRESHOLD=10000;
     private final PriorityQueue<OrderNode> orders;
     private final List<VehicleWithOrders> dispatch;
@@ -19,12 +18,12 @@ public class LoadBalancer {
         this.orders=new PriorityQueue<>();
         this.dispatch=new ArrayList<>();
     }
-
+    @Override
     public void addNewOrders(List<Order> newOrders){
         addNewOrders(newOrders,newOrders.size()>=PARALLEL_STREAM_THRESHOLD);
         tryToDispatch();
     }
-
+    @Override
     public void addNewVehicles(List<Vehicle> newVehicles){
         addNewVehicles(newVehicles,newVehicles.size()>=PARALLEL_STREAM_THRESHOLD);
         tryToDispatch();
@@ -65,6 +64,7 @@ public class LoadBalancer {
        }
     }
 
+    @Override
     public void dispatch(){
         List<OrderNode> orphanedOrders = new ArrayList<>();
         while(!orders.isEmpty()){
@@ -126,14 +126,14 @@ public class LoadBalancer {
            }
     }
 
+    @Override
     public List<VehicleWithOrders> getDispatch(){
         return this.dispatch;
     }
 
-    private static class Haversine{
+    private static class Haversine {
         private static final double EARTH_RADIUS_KM=6371.0;
-
-        private static double findDistance(double lat1,double lon1,double lat2,double lon2){
+        public static double findDistance(double lat1,double lon1,double lat2,double lon2){
             double dLat=Math.toRadians(lat2-lat1);
             double dLon=Math.toRadians(lon2-lon1);
             lat1=Math.toRadians(lat2);
