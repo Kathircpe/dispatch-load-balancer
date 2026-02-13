@@ -35,6 +35,7 @@ public class DispatchController {
     public ResponseEntity<PostStatus> vehicleController(@RequestBody Map<String, List<Vehicle>> body){
         return dispatchService.vehicleService(body);
     }
+
     @GetMapping("/vehicles")
     public ResponseEntity<PlanResponse> planController(){
         return dispatchService.planService();

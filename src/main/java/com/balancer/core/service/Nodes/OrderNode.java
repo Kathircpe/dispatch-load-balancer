@@ -3,6 +3,9 @@ package com.balancer.core.service.Nodes;
 import com.balancer.core.model.Order;
 import com.balancer.core.utils.OrderInputValidator;
 
+/**
+ * to store orders for dispatch calculation
+ */
 public class OrderNode implements Comparable<OrderNode> {
     public final String orderId;
     public final Double latitude;
@@ -10,6 +13,7 @@ public class OrderNode implements Comparable<OrderNode> {
     public final String address;
     public final int packageWeight;
     public final int priority;
+
     public OrderNode(Order o){
         this.orderId=o.orderId;
         this.latitude=o.latitude;
@@ -18,6 +22,7 @@ public class OrderNode implements Comparable<OrderNode> {
         this.packageWeight=o.packageWeight;
         this.priority= OrderInputValidator.PRIORITY.indexOf(o.priority);
     }
+    //custom compare method to sort on in the heap
     @Override
     public int compareTo(OrderNode o) {
         if(o==null)return 1;

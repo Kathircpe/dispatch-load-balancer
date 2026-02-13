@@ -3,6 +3,9 @@ package com.balancer.core.service.Nodes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * to store the vehicles and their orders
+ */
 public class VehicleWithOrders {
    public final String vehicleId;
     public final Integer capacity;

@@ -10,6 +10,9 @@ import com.balancer.core.service.Nodes.VehicleWithOrders;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is to convert the stored data to response
+ */
 public class DispatchResponseConverter {
     public static PlanResponse getPlanResponse(LoadBalancer loadBalancer){
         List<VehicleWithOrders> dispatch=loadBalancer.getDispatch();

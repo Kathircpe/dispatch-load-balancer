@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * This class holds the core load balancing implementation
+ */
 public class LoadBalancer implements Balancer {
     private static final int PARALLEL_STREAM_THRESHOLD=10000;
     private final PriorityQueue<OrderNode> orders;
@@ -36,6 +39,7 @@ public class LoadBalancer implements Balancer {
         }
     }
 
+    // parallel streams for parallel operations
     private void addNewOrders(List<Order> newOrders, boolean isAboveParallelStreamThreshold){
         if(isAboveParallelStreamThreshold){
             newOrders.parallelStream().forEach(newOrder-> orders.offer(new OrderNode(newOrder)));
@@ -44,6 +48,7 @@ public class LoadBalancer implements Balancer {
         }
     }
 
+    // parallel streams for parallel operations
     private void addNewVehicles(List<Vehicle> newVehicles, boolean isAboveParallelStreamThreshold){
        if(isAboveParallelStreamThreshold){
            newVehicles.parallelStream().forEach(vehicle -> {
@@ -64,21 +69,23 @@ public class LoadBalancer implements Balancer {
        }
     }
 
+    //find the optimal solution to dispatch
     @Override
     public void dispatch(){
         List<OrderNode> orphanedOrders = new ArrayList<>();
+        //traverse all the orders
         while(!orders.isEmpty()){
             OrderNode currentOrder=orders.poll();
             int nearestVehicleIndex=-1;
             int minDistance=Integer.MAX_VALUE;
-
+            //traverse all the vehicle to find the nearest one
             for(int i=0;i<dispatch.size();i++){
                 VehicleWithOrders v=dispatch.get(i);
                 if(v.capacity-v.totalLoad>= currentOrder.packageWeight){
                     int distance=(int)Math.round(Haversine.findDistance(currentOrder.latitude
-                            , currentOrder.longitude
-                            , v.currentLatitude
-                            , v.currentLongitude));
+                                                                                , currentOrder.longitude
+                                                                                , v.currentLatitude
+                                                                                , v.currentLongitude));
                     nearestVehicleIndex=nearestVehicleIndex==-1||distance<minDistance?i:nearestVehicleIndex;
                     minDistance=Math.min(minDistance,distance);
                 }
@@ -96,14 +103,7 @@ public class LoadBalancer implements Balancer {
         }
     }
 
-    private void concurrentTransfer(List<OrderNode> orphanedOrders) {
-        Thread orderTransferThread=new Thread(()->{
-            transferOrphanedOrders(orphanedOrders
-                    , orphanedOrders.size()>=PARALLEL_STREAM_THRESHOLD);
-        });
-        orderTransferThread.start();
-    }
-
+    //dispatch the order
     private void addToDispatch(OrderNode currentOrder, int nearestVehicle) {
         VehicleWithOrders v = dispatch.get(nearestVehicle);
         v.assignedOrders.add(currentOrder);
@@ -117,6 +117,16 @@ public class LoadBalancer implements Balancer {
         v.totalDistance=kms+" km";
     }
 
+    //Restoring the undispatched order using concurrency(new user thread)
+    private void concurrentTransfer(List<OrderNode> orphanedOrders) {
+        Thread orderTransferThread=new Thread(()->{
+            transferOrphanedOrders(orphanedOrders
+                    , orphanedOrders.size()>=PARALLEL_STREAM_THRESHOLD);
+        });
+        orderTransferThread.start();
+    }
+
+    //Restoring the undispatched order implementation
     private void transferOrphanedOrders(List<OrderNode> orphanedOrders,boolean isAboveParallelStreamThreshold){
             //using parallel streams for only data sets above threshold for faster handling
            if(isAboveParallelStreamThreshold){
