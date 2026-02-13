@@ -1,10 +1,11 @@
 package com.balancer.core.dto;
 
 import com.balancer.core.service.Nodes.VehicleWithOrders;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonPropertyOrder({"vehicleId", "totalLoad", "totalDistance","assignedOrders"})
 public class DispatchResponse {
    public String vehicleId;
     public Integer totalLoad;

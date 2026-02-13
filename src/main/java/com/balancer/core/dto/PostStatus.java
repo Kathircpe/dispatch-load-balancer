@@ -1,8 +1,11 @@
 package com.balancer.core.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"message", "status"})
 public class PostStatus {
-    private final String message;
-    private final String status;
+    public final String message;
+    public final String status;
 
     public PostStatus(String message,String status){
         this.message=message;

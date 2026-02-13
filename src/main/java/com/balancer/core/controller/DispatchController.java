@@ -36,7 +36,7 @@ public class DispatchController {
         return dispatchService.vehicleService(body);
     }
 
-    @GetMapping("/vehicles")
+    @GetMapping("/plan")
     public ResponseEntity<PlanResponse> planController(){
         return dispatchService.planService();
     }

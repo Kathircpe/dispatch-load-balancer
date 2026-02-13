@@ -3,7 +3,9 @@ package com.balancer.core.dto;
 
 import com.balancer.core.service.Nodes.OrderNode;
 import com.balancer.core.utils.OrderInputValidator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({"orderId","latitude","longitude","address","packageWeight","priority"})
 public class OrderResponse {
     public String orderId;
     public Double latitude;
