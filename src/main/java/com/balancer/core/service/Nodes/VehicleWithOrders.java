@@ -7,7 +7,7 @@ import java.util.List;
  * to store the vehicles and their orders
  */
 public class VehicleWithOrders {
-   public final String vehicleId;
+    public final String vehicleId;
     public final Integer capacity;
     public Integer totalLoad;
     public String totalDistance;
@@ -15,11 +15,12 @@ public class VehicleWithOrders {
     public Double currentLongitude;
     public String address;
     public List<OrderNode> assignedOrders;
-    public VehicleWithOrders(String vehicleId, Integer capacity){
-        this.assignedOrders=new ArrayList<>();
-        this.vehicleId=vehicleId;
-        this.capacity=capacity;
-        this.totalLoad=0;
-        this.totalDistance="0 km";
+
+    public VehicleWithOrders(String vehicleId, Integer capacity) {
+        this.assignedOrders = new ArrayList<>();
+        this.vehicleId = vehicleId;
+        this.capacity = capacity;
+        this.totalLoad = 0;
+        this.totalDistance = "0 km";
     }
 }

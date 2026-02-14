@@ -22,22 +22,22 @@ public class DispatchController {
     @Autowired
     private final DispatchService dispatchService;
 
-    public DispatchController(DispatchService dispatchService){
-        this.dispatchService=dispatchService;
+    public DispatchController(DispatchService dispatchService) {
+        this.dispatchService = dispatchService;
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<PostStatus> orderController(@RequestBody Map<String, List<Order>> body){
+    public ResponseEntity<PostStatus> orderController(@RequestBody Map<String, List<Order>> body) {
         return dispatchService.orderService(body);
     }
 
     @PostMapping("/vehicles")
-    public ResponseEntity<PostStatus> vehicleController(@RequestBody Map<String, List<Vehicle>> body){
+    public ResponseEntity<PostStatus> vehicleController(@RequestBody Map<String, List<Vehicle>> body) {
         return dispatchService.vehicleService(body);
     }
 
     @GetMapping("/plan")
-    public ResponseEntity<PlanResponse> planController(){
+    public ResponseEntity<PlanResponse> planController() {
         return dispatchService.planService();
     }
 

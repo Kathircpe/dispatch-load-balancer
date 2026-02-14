@@ -11,7 +11,10 @@ import java.util.List;
  */
 public interface Balancer {
     void addNewVehicles(List<Vehicle> newVehicles);
+
     void addNewOrders(List<Order> newOrders);
+
     void dispatch();
+
     List<VehicleWithOrders> getDispatch();
 }

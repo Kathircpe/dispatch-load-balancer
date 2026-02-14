@@ -5,18 +5,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-@JsonPropertyOrder({"vehicleId", "totalLoad", "totalDistance","assignedOrders"})
+
+@JsonPropertyOrder({"vehicleId", "totalLoad", "totalDistance", "assignedOrders"})
 public class DispatchResponse {
-   public String vehicleId;
+    public String vehicleId;
     public Integer totalLoad;
     public String totalDistance;
     public List<OrderResponse> assignedOrders;
 
-    public DispatchResponse(VehicleWithOrders o){
-        this.vehicleId=o.vehicleId;
-        this.totalLoad=o.totalLoad;
-        this.totalDistance=o.totalDistance;
-        assignedOrders=new ArrayList<>();
+    public DispatchResponse(VehicleWithOrders o) {
+        this.vehicleId = o.vehicleId;
+        this.totalLoad = o.totalLoad;
+        this.totalDistance = o.totalDistance;
+        assignedOrders = new ArrayList<>();
     }
 
 }

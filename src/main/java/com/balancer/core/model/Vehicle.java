@@ -6,8 +6,9 @@ public class Vehicle {
     public Double currentLatitude;
     public Double currentLongitude;
     public String address;
-    public Vehicle(String vehicleId, Integer capacity){
-        this.vehicleId=vehicleId;
-        this.capacity=capacity;
+
+    public Vehicle(String vehicleId, Integer capacity) {
+        this.vehicleId = vehicleId;
+        this.capacity = capacity;
     }
 }

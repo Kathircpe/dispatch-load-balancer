@@ -7,9 +7,9 @@ public class PostStatus {
     public final String message;
     public final String status;
 
-    public PostStatus(String message,String status){
-        this.message=message;
-        this.status=status;
+    public PostStatus(String message, String status) {
+        this.message = message;
+        this.status = status;
     }
 
 }

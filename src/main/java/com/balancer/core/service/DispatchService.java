@@ -17,32 +17,33 @@ import java.util.Map;
 @Service
 public class DispatchService {
     private final LoadBalancer loadBalancer;
-    public DispatchService(){
-        this.loadBalancer=new LoadBalancer();
+
+    public DispatchService() {
+        this.loadBalancer = new LoadBalancer();
     }
 
     public ResponseEntity<PostStatus> vehicleService(Map<String, List<Vehicle>> body) {
-        if(!VehicleInputValidator.validateInput(body)){
+        if (!VehicleInputValidator.validateInput(body)) {
             return new ResponseEntity<>(
-                    new PostStatus("Invalid input","Failure"), HttpStatus.BAD_REQUEST);
+                    new PostStatus("Invalid input", "Failure"), HttpStatus.BAD_REQUEST);
         }
         loadBalancer.addNewVehicles(body.get("vehicles"));
         return new ResponseEntity<>(
-                new PostStatus("Vehicle details accepted","Success"), HttpStatus.ACCEPTED);
+                new PostStatus("Vehicle details accepted", "Success"), HttpStatus.ACCEPTED);
     }
 
     public ResponseEntity<PostStatus> orderService(Map<String, List<Order>> body) {
-        if(!OrderInputValidator.validateInput(body)){
+        if (!OrderInputValidator.validateInput(body)) {
             return new ResponseEntity<>(
-                    new PostStatus("Invalid input","Failure"), HttpStatus.BAD_REQUEST);
+                    new PostStatus("Invalid input", "Failure"), HttpStatus.BAD_REQUEST);
         }
         loadBalancer.addNewOrders(body.get("orders"));
         return new ResponseEntity<>(
-                new PostStatus("Delivery orders accepted","Success"), HttpStatus.ACCEPTED);
+                new PostStatus("Delivery orders accepted", "Success"), HttpStatus.ACCEPTED);
     }
 
     public ResponseEntity<PlanResponse> planService() {
-        PlanResponse planResponse= DispatchResponseConverter.getPlanResponse(loadBalancer);
-        return new ResponseEntity<>(planResponse,HttpStatus.FOUND);
+        PlanResponse planResponse = DispatchResponseConverter.getPlanResponse(loadBalancer);
+        return new ResponseEntity<>(planResponse, HttpStatus.FOUND);
     }
 }
