@@ -125,16 +125,16 @@ public class LoadBalancer implements Balancer {
 
     //dispatch the order
     private void addToDispatch(OrderNode currentOrder, int nearestVehicle, int travelDistanceForThisPakcage) {
-        VehicleWithOrders v = dispatch.get(nearestVehicle);
-        v.assignedOrders.add(currentOrder);
+        VehicleWithOrders vehicle = dispatch.get(nearestVehicle);
+        vehicle.assignedOrders.add(currentOrder);
         //now the current pos is the delivery of the last package and the weight to the load
-        v.currentLatitude = currentOrder.latitude;
-        v.currentLongitude = currentOrder.longitude;
-        v.totalLoad += currentOrder.packageWeight;
-        v.address = currentOrder.address;
+        vehicle.currentLatitude = currentOrder.latitude;
+        vehicle.currentLongitude = currentOrder.longitude;
+        vehicle.totalLoad += currentOrder.packageWeight;
+        vehicle.address = currentOrder.address;
         //parse the prev travel distance and add the current one
-        int prevKms = Integer.parseInt(v.totalDistance.substring(0, v.totalDistance.length() - 3));
-        v.totalDistance = (prevKms + travelDistanceForThisPakcage) + " km";
+        int prevKms = Integer.parseInt(vehicle.totalDistance.substring(0, vehicle.totalDistance.length() - 3));
+        vehicle.totalDistance = (prevKms + travelDistanceForThisPakcage) + " km";
     }
 
     //Restoring the undispatched order using concurrency(new user thread)
